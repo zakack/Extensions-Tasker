@@ -1,0 +1,12 @@
+{
+    "display_name": "Tasker",
+    "loading_order": 10,
+    "requires": [],
+    "optional": [],
+    "js": "index.js",
+    "css": "",
+    "author": "zakack",
+    "version": "0.1.0",
+    "homePage": "https://github.com/zakack/Extensions-Tasker",
+    "auto_update": false
+}
