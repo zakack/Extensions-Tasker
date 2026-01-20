@@ -44,3 +44,20 @@
 
     console.log("Tasker Bridge: Individual message sync active.");
 })();
+window.addEventListener('TaskerToST', async (event) => {
+    const taskerConvo = event.detail; // The data sent from Tasker
+    const taskerSlash = '/go Zachary||/newchat||/persona mode=temp ' + taskerConvo.sender + '||/send ' + taskerConvo.text;
+    
+    // Obtain the SillyTavern context for access to internal utilities [1]
+    const context = SillyTavern.getContext();
+
+    try {
+        // Use the SlashCommandParser to process the incoming data as a message [1]
+        // This simulates the user hitting 'Enter' and triggers the generation process.
+        if (window.SlashCommandParser) {
+            await window.SlashCommandParser.runLine(taskerSlash);
+        }
+    } catch (error) {
+        console.error('[Tasker Bridge] Failed to trigger message send:', error);
+    }
+});
