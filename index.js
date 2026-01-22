@@ -45,7 +45,7 @@
     console.log("Tasker Bridge: Individual message sync active.");
 })();
 window.addEventListener('TaskerToST', async (event) => {
-    const taskerConvo = event.detail; // The data sent from Tasker
+    const taskerConvo = event.detail.message; // The data sent from Tasker
     const taskerSlash = '/go Zachary||/newchat||/persona mode=temp ' + taskerConvo.sender + '||/send ' + taskerConvo.text;
     
     // Obtain the SillyTavern context for access to internal utilities [1]
