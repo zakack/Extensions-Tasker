@@ -44,6 +44,27 @@
 
     console.log("Tasker Bridge: Individual message sync active.");
 })();
+
+(function() {
+	const { eventSource, event_types } = SillyTavern.getContext();
+
+	async function signalReady() {
+		try {
+			if (typeof tk === 'undefined' || typeof tk.setGlobal !== 'function') {
+				console.warn('Tasker interface (tk) not found.');
+				return;
+			}
+			tk.setGlobal('STREADY', true);
+            tk.flash(`SillyTavern is ready!`);
+		} catch (error) {
+			console.error('Failed to signal ST readiness.');
+		}
+	}
+
+	eventSource.on(event_types.APP_READY, signalReady);
+    console.log("Tasker Bridge: SillyTavern is ready!");
+})();
+
 window.addEventListener('TaskerToST', async (event) => {
     const taskerConvo = event.detail.message; // The data sent from Tasker
     const taskerSlash = '/go Zachary||/newchat||/persona mode=temp ' + taskerConvo.sender + '||/send ' + taskerConvo.text;
@@ -61,3 +82,20 @@ window.addEventListener('TaskerToST', async (event) => {
         console.error('[Tasker Bridge] Failed to trigger message send:', error);
     }
 });
+
+// jQuery(async () => {
+//   // This is an example of loading HTML from a file
+//   const settingsHtml = await $.get(`${extensionFolderPath}/example.html`);
+//
+//   // Append settingsHtml to extensions_settings
+//   // extension_settings and extensions_settings2 are the left and right columns of the settings menu
+//   // Left should be extensions that deal with system functions and right should be visual/UI related 
+//   $("#extensions_settings").append(settingsHtml);
+//
+//   // These are examples of listening for events
+//   $("#my_button").on("click", onButtonClick);
+//   $("#example_setting").on("input", onExampleInput);
+//
+//   // Load settings when starting things up (if you have any)
+//   loadSettings();
+// });
