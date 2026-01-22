@@ -1,6 +1,7 @@
 import { substituteParams } from '../../../../script.js';
 
 (function() {
+	const { eventSource, event_types } = SillyTavern.getContext();
 	eventSource.on(event_types.MESSAGE_RECEIVED, (messageId) => {
 
 		const context = window['SillyTavern'].getContext();
